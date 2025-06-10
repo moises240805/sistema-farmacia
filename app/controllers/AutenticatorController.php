@@ -1,0 +1,142 @@
+<?php
+    //llama al modelo
+    require_once 'app/models/AutenticatorModel.php';
+    require_once 'components/utils.php';
+
+    //zona horaria
+    date_default_timezone_set('America/Caracas');
+
+    // se almacena la action o la peticion http 
+    //$action = '';
+    $action = isset($_GET['action']) ? $_GET['action'] : '';
+
+    // indiferentemente sea la action el switch llama la funcion correspondiente
+    switch ($action) {
+
+        case 'registrar':
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                Registrar();
+            }
+        break;
+
+        case 'register':
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                Register_Views();
+            }
+        break;
+
+        case 'ingresar':
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                Iniciar_Sesion();
+            }
+        break;
+
+        case 'login':
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                Login_Views();
+            }
+        break;
+
+        case 'recuperar':
+            if ($_SERVER['REQUEST?METHOD'] == 'POST') {
+                Recuperar();
+            }
+        break;
+
+        case 'ajustes':
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                Recuperar_Views();
+            }
+        break;
+
+        case 'obtener':
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                Obtener();
+            }
+        break;
+
+        default:
+            Login_Views();
+        break;
+    }
+
+    // funcion para registrar un nuevo usuario para el sistema
+    function Registrar() {
+
+        // crea el objeto
+        $modelo = new Autenticator();
+
+        //obtiene los valores y lo sinatiza
+        $username = filter_var($_POST['username'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
+        $password = filter_var($_POST['password'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        // valida si todo los los campos esta vacios
+        if (empty($username) && empty($email) && empty($password)) {
+            setError('Todos los campos no pueden ser enviados vacios.');
+            header('Location: index.php?url=autenticator&action=register');
+            exit();
+        }
+
+        // se arma el objeto json del usuario
+        $usuario_json = json_encode([
+            'username' => $username,
+            'email' => $email,
+            'password' => $password,
+            'rol' => '3'
+        ]);
+
+        try {
+
+            // lla ma la funcion que maneja las acciones en el modelo donde pasa como 
+            // primer para metro la accion y luego el objeto usuario_json
+            $resultado = $modelo->manejarAccion('agregar', $usuario_json);
+
+            // valida si exixtes el staus del resultado y si es true 
+            if (isset($resultado['status']) && $resultado['status'] === true) {
+
+                // usa el mensaje dinamico del modelo
+                setSuccess($resultado['msj']);
+            }
+            else {
+                
+                // Error: usa mensaje dinamico o generico
+                $mensajeError = $resultado['msj'] ?? 'Error al registrar...';
+                setError($mensajeError);
+
+                //redirect
+                header('Location: index.php?url=autenticator&action=register');
+            }
+        }
+        catch (Exception $e) {
+
+            //mensaje del exception de pdo
+            error_log('Error al registrar...' . $e->getMessage());
+            setError('Error en operacion.');
+        }
+
+        //redirect
+        header('Location: index.php?url=autenticator&action=login');
+        exit();
+    }
+
+    // funcion para iniciar session en el sistema
+    function Iniciar_Sesion() {
+
+    }
+
+    // funcion que llama la vista de registrar usuario
+    function Register_Views() {
+        require_once 'app/views/register.php';
+    }
+
+    // funcion que llama la vista de iniciar session usuario
+    function Login_Views() {
+        require_once 'app/views/login.php';
+    }
+
+    // funcion que llama la vista de recuperar usuario
+    function Recuperar_Views() {
+        require_once 'app/views/recuperar.php';
+    }
+?>
