@@ -98,7 +98,7 @@ class Autenticator extends Conexion {
         if (is_string($usuario_json)) {
 
             // se almacena el contenido del json en la variable usuario
-            $usuario = json_decode($usuaio_json, true);
+            $usuario = json_decode($usuario_json, true);
             
             // valida que el json cumpla con el formato requerido
             if ($usuario === null) {
@@ -148,7 +148,7 @@ class Autenticator extends Conexion {
         if (is_string($usuario_json)) {
 
             // se almacena el contenido del json en la variable usuario
-            $usuario = json_decode($usuaio_json, true);
+            $usuario = json_decode($usuario_json, true);
             
             // valida que el json cumpla con el formato requerido
             if ($usuario === null) {
@@ -223,7 +223,7 @@ class Autenticator extends Conexion {
         if (is_string($usuario_json)) {
 
             // se almacena el contenido del json en la variable usuario
-            $usuario = json_decode($usuaio_json, true);
+            $usuario = json_decode($usuario_json, true);
             
             // valida que el json cumpla con el formato requerido
             if ($usuario === null) {
@@ -366,6 +366,14 @@ class Autenticator extends Conexion {
 
             // termina el script
             break;
+
+            default:
+
+                // retorna un mensaje de error en caso de no existir la accion
+                return['status' => false, 'msj' => 'Accion Invalida.'];
+
+            // termina el script
+            break;
         }
     }
 
@@ -441,9 +449,58 @@ class Autenticator extends Conexion {
         }
     }
 
-    // funcion para iniciar session
+    // funcion para iniciar session un usuario
     private function Iniciar_Session() {
 
+        // la conxecion es null por defecto
+        $this->closeConnection();
+
+        // para manejo de errores
+        try {
+            
+            // llamo la funcion y creo la conexion
+            $conn = $this->getConnection();
+
+            // consulta el usuario que inicia session
+            $query = "SELECT u.*, r.rol_nombre
+                        FROM usuarios u
+                        LEFT JOIN roles r ON u.usuario_rol_id = r.rol_id
+                        WHERE usuario_nombre = :username
+                        AND u.status = 1"; //valida el estado del usuario si esta activo
+
+            // prepar la sentencia 
+            $stmt = $conn->prepare($query);
+
+            // vincula los parametros
+            $stmt->bindValue(':username', $this->getUsername());
+
+            // ejecuta la sentencia
+            $stmt->execute(); 
+
+            // se valida si se ejecuto la sentencia y si es true
+            if ($stmt->rowCount() === 1) {
+
+                // almacena los datos extraidos de la base de datos 
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                //retorna el status con el mensaje y los datos de usuario
+                return['status' => true, 'msj' => 'Usuario encontrado con exito.', 'data' => $data];
+            }
+            else {
+
+                // reti=rona un status de error con un mensaje 
+                return['status' => false, 'msj' => 'Usuario no encontrado o inactivo'];
+            }
+        } catch (PDOException $e) {
+            
+            // retorna mensaje de error del exception del pdo
+            return['status' => false, 'msj' => 'Error en la consulta' . $e->getMessage()];
+        }
+        finally {
+
+            // finaliza la fincion cerrando la conexion a la bd
+            $this->closeConnection();
+        }
     }
 }
 ?>

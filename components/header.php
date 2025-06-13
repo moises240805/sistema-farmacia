@@ -1,5 +1,9 @@
       <!-- End Sidebar -->
-
+    <?php 
+    require_once "components/links.php";
+    require_once "components/scripts.php";
+    require_once "components/alerts.php";
+    ?>
       <div class="main-panel">
         <div class="main-header">
           <div class="main-header-logo">
@@ -338,8 +342,8 @@
                       />
                     </div>
                     <span class="profile-username">
-                      <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Hizrian</span>
+                      <span class="op-7">Hola,</span>
+                      <span class="fw-bold"><?php echo $_SESSION['s_usuario']['usuario_nombre']?></span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -354,25 +358,25 @@
                             />
                           </div>
                           <div class="u-text">
-                            <h4>Hizrian</h4>
-                            <p class="text-muted">hello@example.com</p>
+                            <h4><?php echo $_SESSION['s_usuario']['usuario_nombre']?></h4>
+                            <p class="text-muted"><?php echo $_SESSION['s_usuario']['usuario_email']?></p>
                             <a
                               href="profile.html"
                               class="btn btn-xs btn-secondary btn-sm"
-                              >View Profile</a
+                              >Perfil</a
                             >
                           </div>
                         </div>
                       </li>
                       <li>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">My Profile</a>
-                        <a class="dropdown-item" href="#">My Balance</a>
+                        <a class="dropdown-item" href="#">Mi Perfli</a>
+                        <a class="dropdown-item" href="#">Mi Balance</a>
                         <a class="dropdown-item" href="#">Inbox</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Account Setting</a>
+                        <a class="dropdown-item" href="#">Configuracion</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="index.php?url=autenticator&action=cerrar">Cerrar Session</a>
                       </li>
                     </div>
                   </ul>

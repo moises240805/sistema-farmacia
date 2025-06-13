@@ -1,7 +1,7 @@
 <?php
 
 $rutas = ([
-    'Dashboard' => 'app/views/Dashboard.php',
+    'dashboard' => 'app/views/Dashboard.php',
     'autenticator' => 'app/controllers/AutenticatorController.php'
 ])
 

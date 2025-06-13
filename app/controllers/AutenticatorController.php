@@ -55,6 +55,12 @@
             }
         break;
 
+        case 'cerrar':
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                Cerrar_Session();
+            }
+        break;
+
         default:
             Login_Views();
         break;
@@ -123,6 +129,103 @@
     // funcion para iniciar session en el sistema
     function Iniciar_Sesion() {
 
+        // crea el objeto
+        $modelo = new Autenticator();
+
+        //obtiene y sinatiza los datos
+        $username = filter_var($_POST['username'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $password = filter_var($_POST['password'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        // valida si los campos no estan vacios
+        if (empty($username) || empty($password)) {
+
+            setError("Todos los campos no pueden ser enviados vacios.");
+            header("Location: index.php?url=atenticator?action=login");
+            exit();
+        }
+
+        // se arma el json del usuario
+        $usuario_json = json_encode([
+            'username' => $username,
+            'password' => $password
+        ]);
+
+        // obtiene los datos del usuario del modelo
+        $resultado = $modelo->manejarAccion('ingresar',$usuario_json);
+
+        // valida si el resulatdo es true
+        if ($resultado['status']) {
+
+            // almacena los datos del usuario 
+            $usuario = $resultado['data'];
+
+            // verifica la password utilizando password_verify
+            if (password_verify($password, $usuario['usuario_password'])) {
+
+                // se asegura que la session este iniciada
+                if (session_status() === PHP_SESSION_NONE) {
+
+                    // se inicializa la session
+                    session_start();
+                }
+
+                // se inicializa la variables de session
+                $_SESSION['s_usuario'] = [
+                    'usuario_id' => $usuario['usuario_id'],
+                    'usuario_nombre' => $usuario['usuario_nombre'],
+                    'usuario_email' => $usuario['usuario_email'],
+                    'usuario_rol_id' => $usuario['usuario_rol_id'],
+                    'usuario_nombre_rol' => $usuario['rol_nombre'],
+                ];
+
+                // mensaje de bienvenida
+                setSuccess("Bienvenido!. Usuario autenticado correctamente.");
+
+                // redirect
+                header("Location: index.php?url=dashboard");
+                
+                // termina el script una vez redereccionado el usuario
+                exit();
+            }
+            else {
+                
+                //mensaje de error en autenticacion
+                setError("Datos incorrectos intentelo de nuevo.");
+
+                // redirect
+                header("Location: index.php?url=autenticator?action=login");
+
+                // termina el script
+                exit();
+            }
+        }
+        else {
+
+            // mensaje de error en consulta de usuario
+            setError("Usuario no encontrado intentelo de nuevo o cree una cuenta.");
+
+            // redirect
+            header("Location: index.php?url=autenticator?action=login");
+
+            //termina el script
+            exit();
+        }
+    }
+
+    // funcion para cerrar session de un usuario
+    function Cerrar_Session() {
+
+        // inicializa la session
+        session_start();
+
+        // destruye la session
+        session_destroy();
+
+        // redirect
+        header('location:index.php');
+        
+        // termina el script
+        exit();
     }
 
     // funcion que llama la vista de registrar usuario

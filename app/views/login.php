@@ -34,7 +34,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Iniciar Sesión</h1>
                                     </div>
-                                    <form class="formulario user" action="index.php?url=autenticator&a=ingresar" method="post">
+                                    <form class="formulario user" onsubmit="return formulario_validaciones()" action="index.php?url=autenticator&action=ingresar" method="post">
                                         <div class="form-group">
                                             <div class="input-group">
                                                  <span class="input-group-text" id="basic-addon1"
@@ -47,7 +47,10 @@
                                                     aria-label="Username"
                                                     aria-describedby="basic-addon1"
                                                     name='username' id='username' required
-                                                    />
+                                                    oninput="username_validacion()"
+                                                    >
+                                                <span id="icono-validacionUsername" class="input-icon"></span>
+                                                <span id="errorUsername" class="error-messege"></span>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -55,15 +58,16 @@
                                                  <span class="input-group-text" id="basic-addon1"
                                                     ><i class="fa fa-lock"></i></span
                                                     >
-                                                <input class="form-control form-control-user input_pw" type="password" name="password" id="password" placeholder="password" required oninput="Password()">
-                                                <span id="Error" class="error-message"></span>
+                                                <input class="form-control form-control-user input_pw" type="password" name="password" id="password" placeholder="password" required oninput="password_validacion()">
+                                                <span id="icono-validacionPW" class="input-icon"></span>
+                                                <span id="errorPW" class="error-messege"></span>
                                             </div>
                                         </div>
                                         <center>
                                             <a href="index.php?url=autenticator&action=recuperar">No te recuerdas de tu password?.</a>
                                         </center>
                                         <br>
-                                        <button class="btn btn-primary btn-user btn-block iniciar_seccion" onclick="return Password()" type="submit">INGRESAR</button>
+                                        <button class="btn btn-primary btn-user btn-block iniciar_seccion" type="submit">INGRESAR</button>
                                     </form>
                                     <br>
                                     <center>
@@ -78,5 +82,6 @@
         </div>
     </div>
     <script src="components/scripts.php"></script>
+    <script src="assets/js/validaciones/login_validaciones.js"></script>
 </body>
 </html>
