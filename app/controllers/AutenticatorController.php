@@ -1,6 +1,8 @@
 <?php
     //llama al modelo
     require_once 'app/models/AutenticatorModel.php';
+    
+    // llama el archivo que contiene la carga de alerta
     require_once 'components/utils.php';
 
     //zona horaria

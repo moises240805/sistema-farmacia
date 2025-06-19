@@ -62,9 +62,9 @@
                       </a>
                     </li>
                     <li>
-                      <a href="index.php?url=presentacion">
+                      <a href="index.php?url=presentaciones">
                         <i class="fa fa-box"></i>
-                        <span class="sub-item">Presentacion</span>
+                        <span class="sub-item">Presentaciones</span>
                       </a>
                     </li>
                     <li>
@@ -148,21 +148,21 @@
                 <div class="collapse" id="movimientos">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="index.php?url=caja">
+                      <a href="index.php?url=cajas">
                         <i class="fa fa-dollar"></i>
                         <span class="sub-item">Cajas</span>
                       </a>
                     </li>
                     <li>
-                      <a href="index.php?ulr=ingreso">
+                      <a href="index.php?ulr=ingresos">
                         <i class="fa fa-hand-holding-usd"></i>
                         <span class="sub-item">Ingresos</span>
                       </a>
                     </li>
                     <li>
-                      <a href="index.php?ulr=engreso"> 
+                      <a href="index.php?ulr=egresos"> 
                         <i class="fa fa-money-bill-wave"></i>
-                        <span class="sub-item">Engresos</span>
+                        <span class="sub-item">Egresos</span>
                       </a>
                     </li>
                   </ul>
@@ -183,7 +183,7 @@
                 <div class="collapse" id="sistema">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="index.php?url=usuario">
+                      <a href="index.php?url=usuarios">
                         <i class="fa fa-user-circle"></i>
                         <span class="sub-item">Usuarios</span>
                       </a>
@@ -204,7 +204,7 @@
                     <li>
                       <a href="index.php?ulr=mantenimiento"> 
                         <i class="fa fa-database"></i>
-                        <span class="sub-item">mantenimiento</span>
+                        <span class="sub-item">Mantenimiento</span>
                       </a>
                     </li>
                   </ul>
@@ -243,7 +243,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="index.php?ulr=documuentos"> 
+                      <a href="index.php?ulr=documentos"> 
                         <i class="fa fa-file-pdf"></i>
                         <span class="sub-item">DOCS / XLS / PDF</span>
                       </a>
