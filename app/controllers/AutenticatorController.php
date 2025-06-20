@@ -195,7 +195,7 @@
                 setError("Datos incorrectos intentelo de nuevo.");
 
                 // redirect
-                header("Location: index.php?url=autenticator?action=login");
+                header("Location: index.php?url=autenticator&action=login");
 
                 // termina el script
                 exit();
@@ -207,7 +207,7 @@
             setError("Usuario no encontrado intentelo de nuevo o cree una cuenta.");
 
             // redirect
-            header("Location: index.php?url=autenticator?action=login");
+            header("Location: index.php?url=autenticator&action=login");
 
             //termina el script
             exit();

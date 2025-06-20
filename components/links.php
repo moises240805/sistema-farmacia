@@ -31,12 +31,6 @@
         },
       });
     </script>
-    <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-<!-- DataTables CSS para Bootstrap 5 -->
-<link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-
 
     <!-- CSS Files -->
     <!--<link rel="stylesheet" href="assets/css/bootstrap.min.css" />-->
@@ -61,4 +55,4 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="assets/css/demo.css" />
-  
+    

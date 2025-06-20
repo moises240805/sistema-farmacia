@@ -3,8 +3,8 @@ function username_validacion() {
   var username = document.getElementById('username');
   var error = document.getElementById('errorUsername');
   var icono = document.getElementById('icono-validacionUsername');
-  error.textContent = ''; // limpia el mensaje
-  icono.innerHTML = ''; // limpia el icono
+  //error.textContent = ''; // limpia el mensaje
+  //icono.innerHTML = ''; // limpia el icono
   username.classList.remove('input-error' , 'input-valid');
   icono.classList.remove('error');
 

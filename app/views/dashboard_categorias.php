@@ -2,25 +2,24 @@
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Dashboard</title>
+    <title>Farmacia: Categorias</title>
     <?php
     require_once 'components/links.php';
-    require_once 'components/alerts.php';
     ?>
+    <link rel="stylesheet" href="assets/css/validaciones.css" />
   </head>
   <body>
     <?php
     require_once 'components/menu.php';
     require_once 'components/header.php';
-    require_once 'components/scripts.php';
     ?>
-<div class="container">
+      <div class="container">
           <div class="page-inner">
             <div class="page-header">
               <h3 class="fw-bold mb-3">Categorias</h3>
               <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                  <a href="#">
+                  <a href="ndex.php?url=dashboard">
                     <i class="icon-home"></i>
                   </a>
                 </li>
@@ -28,13 +27,13 @@
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="#">Dashboard</a>
+                  <a href="index.php?url=dashboard">Dashboard</a>
                 </li>
                 <li class="separator">
                   <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                  <a href="#">Categorias</a>
+                  <a href="index.php?url=categorias">Categorias</a>
                 </li>
               </ul>
             </div>
@@ -42,12 +41,12 @@
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center justify-content-between">
                       <h4 class="card-title">Registros</h4>
                       <button
-                        class="btn btn-primary btn-round ms-auto"
+                        class="btn btn-outline-success btn-round ms-auto"
                         data-bs-toggle="modal"
-                        data-bs-target="#addRowModal"
+                        data-bs-target="#categoriaModal"
                       >
                         <i class="fa fa-plus"></i>
                         Agregar
@@ -68,7 +67,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                                      <?php 
+                          <?php 
                 //verifica si cliente existe o esta vacia en dado caso que este vacia muestra clientes no 
                 // registrados ya que si el usuario que realizo la pedticion no tiene el permiso en cambio 
                 // si lo tiene muestra la informacion
@@ -80,24 +79,28 @@
                             <td><?php echo $categoria['categoria_nombre']; ?></td>
                             <td>
                               <div class="form-button-action">
-                                <button
+                                <a
+                                onclick="ModalModificar(<?php echo $categoria['categoria_id']; ?>)"
                                   type="button"
                                   data-bs-toggle="tooltip"
                                   title=""
                                   class="btn btn-link btn-primary btn-lg"
                                   data-original-title="Edit Task"
+                                  title='Modificar'
                                 >
                                   <i class="fa fa-edit"></i>
-                                </button>
-                                <button
+                                </a>
+                                <a
+                                 onclick="return eliminar()" href="#=<?php echo $categoria['categoria_id']; ?>"
                                   type="button"
                                   data-bs-toggle="tooltip"
                                   title=""
                                   class="btn btn-link btn-danger"
                                   data-original-title="Remove"
+                                  title='Eliminar'
                                 >
                                   <i class="fa fa-times"></i>
-                                </button>
+                                </a>
                               </div>
                             </td>
                           </tr>
@@ -117,7 +120,34 @@
           </div>
         </div>
 <?php
+require_once 'components/footer.php';
 require_once 'components/scripts.php';
 ?>
   </body>
 </html>
+
+<!-- Modal -->
+<div class="modal fade" id="categoriaModal" tabindex="-1" aria-labelledby="categoriaModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="formCategoria" onsubmit="return validar_formulario()" method="post" action="index.php?url=categorias&action=agregar">
+        <div class="modal-header">
+          <h5 class="modal-title" id="categoriaModalLabel">Agregar Nueva Categoría</h5>
+          <button type="button" class="fa fa-close btn btn-outline-dark btn-round ms-auto" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+              <label for="nombreCategoria" class="form-label"><b>Nombre de categoría</b></label>
+              <input type="text" class="form-control" id="nombreCategoria" name="nombreCategoria" placeholder="Ingrese el nombre" oninput="validar_nombre()" required>
+              <span id="errorCategoria" class="error-messege"></span>
+              <span id="icono-validacionCategoria" class="input-icon"></span>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-outline-danger btn-round" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-outline-success btn-round">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/validaciones/categorias_validaciones.js"></script>

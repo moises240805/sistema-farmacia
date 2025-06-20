@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="assets/css/register.css">
     <?php 
     require_once "components/links.php";
-    require_once "components/scripts.php";
     require_once "components/alerts.php";
     ?>
     <title>Farmacia : Register</title>
@@ -98,7 +97,6 @@
             </div>
         </div>
     </div>
-    <script src="components/scripts.php"></script>
     <script src="assets/js/validaciones/register_validaciones.js"></script>
 </body>
 </html>

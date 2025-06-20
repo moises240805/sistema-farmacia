@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="assets/css/login.css">
     <?php 
     require_once "components/links.php";
-    require_once "components/scripts.php";
     require_once "components/alerts.php";
     ?>
     <title>farmacia : login</title>
@@ -81,7 +80,6 @@
             </div>
         </div>
     </div>
-    <script src="components/scripts.php"></script>
     <script src="assets/js/validaciones/login_validaciones.js"></script>
 </body>
 </html>

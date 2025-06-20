@@ -1,7 +1,7 @@
       <!-- End Sidebar -->
     <?php 
     require_once "components/links.php";
-    require_once "components/scripts.php";
+    //require_once "components/scripts.php";
     require_once "components/alerts.php";
     ?>
       <div class="main-panel">

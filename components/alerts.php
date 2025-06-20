@@ -14,7 +14,9 @@ if (isset($_SESSION['message']) && isset($_SESSION['message_type'])) {
                 icon: '" . ($js_message_type === 'success' ? 'success' : 'error') . "',
                 title: '" . ($js_message_type === 'success' ? '¡Exitoso!' : '¡Error!') . "',
                 text: '{$js_message}',
-                confirmButtonText: 'Cerrar'
+                confirmButtonText: 'Cerrar',
+                timer: 6000,
+                timerProgressBar: true,
             });
         });
     </script>";

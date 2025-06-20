@@ -1,4 +1,8 @@
-<script src="components/scripts.js"></script>
+      <!-- End Custom template -->
+    </div>
+    <!-- JS de SweetAlert2 -->
+
+    <script src="components/scripts.js"></script>
     <!--   Core JS Files   -->
     <script src="assets/js/core/jquery-3.7.1.min.js"></script>
     <script src="assets/js/core/popper.min.js"></script>
@@ -27,7 +31,7 @@
     <script src="assets/js/plugin/jsvectormap/world.js"></script>
 
     <!-- Sweet Alert -->
-    <script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+    <script src="assets/js/sweetalert2.min.js"></script>
 
     <!-- Kaiadmin JS -->
     <script src="assets/js/kaiadmin.min.js"></script>
@@ -64,59 +68,31 @@
       });
     </script>
 
- <!--   Core JS Files   -->
-    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap.min.js"></script>
-
-    <!-- jQuery Scrollbar -->
-    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-    <!-- Datatables -->
-    <script src="assets/js/plugin/datatables/datatables.min.js"></script>
-    <!-- Kaiadmin JS -->
-    <script src="assets/js/kaiadmin.min.js"></script>
-    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="assets/js/setting-demo2.js"></script>
-
-    
-
-    <script>
-      $(document).ready(function () {
-        $("#add-row").DataTable({
-                  "language": {
+   <script>
+   $(function () {
+      // $(".datatable").DataTable();
+      $("#add-row").DataTable({
+         "language": {
             "url": "assets/js/DataTables/spanish.json",
             'info': true,
          },
          responsive: true,
-          pageLength: 5,
-          initComplete: function () {
-            this.api()
-              .columns()
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select class="form-select"><option value=""></option></select>'
-                )
-                  .appendTo($(column.footer()).empty())
-                  .on("change", function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                    column
-                      .search(val ? "^" + val + "$" : "", true, false)
-                      .draw();
-                  });
-
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                    select.append(
-                      '<option value="' + d + '">' + d + "</option>"
-                    );
-                  });
-              });
-          },
-        });
+         pagingType: "full_numbers", // Muestra paginación avanzada
+         order: [[0, "desc"]], // Ordena por la primera columna descendente
       });
-    </script>
+   });
+</script>
+
+<style>
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: #d3d3d3 !important;
+    color: #000 !important;
+    cursor: pointer;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #a9a9a9 !important;
+    color: white !important;
+}
+</style>
+
+
