@@ -63,14 +63,14 @@
                                             </div>
                                         </div>
                                         <center>
-                                            <a href="index.php?url=autenticator&action=recuperar">No te recuerdas de tu password?.</a>
+                                            <a class='btn btn-link' href="index.php?url=autenticator&action=recuperar">No te recuerdas de tu password?.</a>
                                         </center>
                                         <br>
-                                        <button class="btn btn-primary btn-user btn-block iniciar_seccion" type="submit">INGRESAR</button>
+                                        <button class="btn btn-outline-primary btn-block btn-round iniciar_seccion" type="submit">INGRESAR</button>
                                     </form>
                                     <br>
                                     <center>
-                                        <a href="index.php?url=autenticator&action=register">No tienes cuenta crea una?.</a>
+                                        <a class='btn btn-link' href="index.php?url=autenticator&action=register">No tienes cuenta crea una?.</a>
                                     </center>
                                 </div>
                             </div>

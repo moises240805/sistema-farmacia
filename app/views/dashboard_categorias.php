@@ -80,23 +80,20 @@
                             <td>
                               <div class="form-button-action">
                                 <a
-                                onclick="ModalModificar(<?php echo $categoria['categoria_id']; ?>)"
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title=""
-                                  class="btn btn-link btn-primary btn-lg"
-                                  data-original-title="Edit Task"
-                                  title='Modificar'
+                                onclick="ObtenerCategoria(<?php echo $categoria['categoria_id']; ?>)"
+                                data-bs-toggle="modal"
+                                data-bs-target="#categoriaModalModificar"      
+                                type="button"
+                                class="btn btn-link btn-primary btn-lg"
+                                title='Modificar'
                                 >
                                   <i class="fa fa-edit"></i>
                                 </a>
-                                <a
-                                 onclick="return eliminar()" href="#=<?php echo $categoria['categoria_id']; ?>"
+                                <a href="#"
+                                 onclick="return EliminarCategoria(event,<?php echo $categoria['categoria_id']; ?>)"
                                   type="button"
                                   data-bs-toggle="tooltip"
-                                  title=""
                                   class="btn btn-link btn-danger"
-                                  data-original-title="Remove"
                                   title='Eliminar'
                                 >
                                   <i class="fa fa-times"></i>
@@ -123,8 +120,7 @@
 require_once 'components/footer.php';
 require_once 'components/scripts.php';
 ?>
-  </body>
-</html>
+
 
 <!-- Modal -->
 <div class="modal fade" id="categoriaModal" tabindex="-1" aria-labelledby="categoriaModalLabel" aria-hidden="true">
@@ -150,4 +146,32 @@ require_once 'components/scripts.php';
   </div>
 </div>
 
+
+<!-- Modal Modificar -->
+<div class="modal fade" id="categoriaModalModificar" tabindex="-1" aria-labelledby="categoriaModalModificarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="formCategoria" onsubmit="return validar_formulario_modificado()" method="post" action="index.php?url=categorias&action=modificar">
+        <div class="modal-header">
+          <h5 class="modal-title" id="categoriaModalModificarLabel">Modificar Categoría</h5>
+          <button type="button" class="fa fa-close btn btn-outline-dark btn-round ms-auto" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+              <label for="nombreCategoria" class="form-label"><b>Nombre de categoría</b></label>
+              <input type="text" class="form-control" id="nombreCategoriaEdit" name="nombreCategoria" placeholder="Ingrese el nombre" oninput="validar_nombre_modificado()" required>
+              <span id="errorCategoriaEdit" class="error-messege"></span>
+              <span id="icono-validacionCategoriaEdit" class="input-icon"></span>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-outline-danger btn-round" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-outline-warning btn-round">Modificar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script src="assets/js/validaciones/categorias_validaciones.js"></script>
+
+  </body>
+</html>

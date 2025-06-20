@@ -14,6 +14,124 @@ class Categoria extends Conexion {
         parent::__construct();
     }
 
+    // SETTERS
+    // setters para categoria
+    private function setCategoriaData($categoria_json) {
+
+        // valida si el json es string y lo descompone
+        if (is_string($categoria_json)) {
+
+            // se almacena el contenido del json en la variable usuario
+            $categoria = json_decode($categoria_json, true);
+            
+            // valida que el json cumpla con el formato requerido
+            if ($categoria === null) {
+
+                // retorna un arry con el mensaje y el status
+                return ['status' => false, 'msj' => 'JSON invalido.'];
+            }
+        }
+
+        // expreciones regulares y validaciones
+        $expre_nombre = '/^[a-zA-Z\s]+$/'; //para el nombre
+        $expre_id = '/^(0|[1-9][0-9]*)$/'; // para el id
+
+        // almacena el id en la variable para despues validar
+        $id = trim($categoria['id'] ?? '');
+        // valida el username si cumple con los requisitos
+        if ($id === '' || !preg_match($expre_id, $id) > 10 || ($id) < 0) {
+            // retorna un arry de status con el mensaje en caso de error
+            return ['status' => false, 'msj' => 'EL id de la categoria es invalido'];
+        }
+
+        // asigna el valor al atributo del objeto si todo salio bien
+        $this->categoria_id = $id;
+
+        // almacena el nombre en la variable para despues validar
+        $nombre = trim($categoria['nombre'] ?? '');
+        // valida el username si cumple con los requisitos
+        if ($nombre === '' || !preg_match($expre_nombre, $nombre) || strlen($nombre) > 20 || strlen($nombre) < 5) {
+            // retorna un arry de status con el mensaje en caso de error
+            return ['status' => false, 'msj' => 'EL nombre de la categoria es invalido debe tener minimo 5 y maximo 20 caracteres y no debe tener caracteres especiales _  ej:Bebida.'];
+        }
+
+        // asigna el valor al atributo del objeto si todo salio bien
+        $this->categoria_nombre = $nombre;
+
+        // retorna true si todo fue validado y asignado correctamente
+        return['status' => true, 'msj' => 'Datos validados y asignados correctamente.']; 
+    }
+
+    // setters para el nombre de la categoria
+    private function setCategoriaNombre($categoria_json) {
+
+        // valida si el json es string y lo descompone
+        if (is_string($categoria_json)) {
+
+            // se almacena el contenido del json en la variable usuario
+            $categoria = json_decode($categoria_json, true);
+            
+            // valida que el json cumpla con el formato requerido
+            if ($categoria === null) {
+
+                // retorna un arry con el mensaje y el status
+                return ['status' => false, 'msj' => 'JSON invalido.'];
+            }
+        }
+
+        // expreciones regulares y validaciones
+        $expre_nombre = '/^[a-zA-Z\s]+$/'; //para el nombre
+
+        // almacena el nombre en la variable para despues validar
+        $nombre = trim($categoria['nombre'] ?? '');
+        // valida el username si cumple con los requisitos
+        if ($nombre === '' || !preg_match($expre_nombre, $nombre) || strlen($nombre) > 20 || strlen($nombre) < 5) {
+            // retorna un arry de status con el mensaje en caso de error
+            return ['status' => false, 'msj' => 'EL nombre de la categoria es invalido debe tener minimo 5 y maximo 20 caracteres y no debe tener caracteres especiales _  ej:Bebida.'];
+        }
+
+        // asigna el valor al atributo del objeto si todo salio bien
+        $this->categoria_nombre = $nombre;
+
+        // retorna true si todo fue validado y asignado correctamente
+        return['status' => true, 'msj' => 'Datos validados y asignados correctamente.'];
+    }
+
+    // setters para el id de la categoria
+    private function setCategoriaID($categoria_json) {
+
+        // valida si el json es string y lo descompone
+        if (is_string($categoria_json)) {
+
+            // se almacena el contenido del json en la variable usuario
+            $categoria = json_decode($categoria_json, true);
+            
+            // valida que el json cumpla con el formato requerido
+            if ($categoria === null) {
+
+                // retorna un arry con el mensaje y el status
+                return ['status' => false, 'msj' => 'JSON invalido.'];
+            }
+        }
+
+        // expreciones regulares y validaciones
+        $expre_id = '/^(0|[1-9][0-9]*)$/'; // para el id
+
+        // almacena el id en la variable para despues validar
+        $id = trim($categoria['id'] ?? '');
+        // valida el username si cumple con los requisitos
+        if ($id === '' || !preg_match($expre_id, $id) || strlen($id) > 10 || strlen($id) < 0) {
+            // retorna un arry de status con el mensaje en caso de error
+            return ['status' => false, 'msj' => 'EL id de la categoria es invalido'];
+        }
+
+        // asigna el valor al atributo del objeto si todo salio bien
+        $this->categoria_id = $id;
+
+        // retorna true si todo fue validado y asignado correctamente
+        return['status' => true, 'msj' => 'Datos validados y asignados correctamente.']; 
+    }
+
     // GETTERS
     //getters para el id
     private function getCategoriaID() {
@@ -27,21 +145,6 @@ class Categoria extends Conexion {
 
         // retorna el nombre a utilizar
         return $this->categoria_nombre;
-    }
-
-    // SETTERS
-    //setters para el id
-    private function setCategoriaID() {
-        
-    }
-
-        //setters para el nombre
-    private function setCategoriaNombre() {
-        
-    }
-    //setters para el nombre y id
-    private function setCategoriaData() {
-
     }
 
     // Esta se encarga de procesar los action indiferentemente cual sea llama la funcion de 
@@ -143,7 +246,7 @@ class Categoria extends Conexion {
         }
     }
 
-    // funcion para iniciar session un usuario
+    // funcion para consultar categorias
     private function Mostrar_Categoria() {
 
         // la conxecion es null por defecto
@@ -155,10 +258,10 @@ class Categoria extends Conexion {
             // llamo la funcion y creo la conexion
             $conn = $this->getConnection();
 
-            // consulta el usuario que inicia session
+            // consulta las categorias
             $query = "SELECT *
                         FROM categorias
-                        WHERE status = 1"; //valida el estado del usuario si esta activo
+                        WHERE status = 1"; //valida el estado si esta activo
 
             // prepar la sentencia 
             $stmt = $conn->prepare($query);
@@ -172,13 +275,106 @@ class Categoria extends Conexion {
                 // almacena los datos extraidos de la base de datos 
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                //retorna el status con el mensaje y los datos de usuario
+                //retorna el status con el mensaje y los datos
                 return['status' => true, 'msj' => 'Categorias encontradas con exito.', 'data' => $data];
             }
             else {
 
                 // reti=rona un status de error con un mensaje 
                 return['status' => false, 'msj' => 'Categorias no encontradas o inactivas'];
+            }
+
+        } catch (PDOException $e) {
+            
+            // retorna mensaje de error del exception del pdo
+            return['status' => false, 'msj' => 'Error en la consulta' . $e->getMessage()];
+        }
+        finally {
+
+            // finaliza la fincion cerrando la conexion a la bd
+            $this->closeConnection();
+        }
+    }
+
+    // funcion para registrar categoria
+    private function Guardar_Categoria() {
+
+        // la conxecion es null por defecto
+        $this->closeConnection();
+
+        // para manejo de errores
+        try {
+            
+            // llamo la funcion y creo la conexion
+            $conn = $this->getConnection();
+
+            // inserta una categoria
+            $query = "INSERT INTO categorias (categoria_nombre)
+                                            VALUES (:nombre)";
+
+            // prepar la sentencia 
+            $stmt = $conn->prepare($query);
+
+            // vincula los parametros
+            $stmt->bindValue(':nombre', $this->getCategoriaNombre());
+
+             // se valida si se ejecuto la sentencia y si es true
+            if ($stmt->execute()) {
+
+                //retorna el status con el mensaje y los datos de usuario
+                return['status' => true, 'msj' => 'Categoria Registrada con exito.'];
+            }
+            else {
+
+                // retorna un status de error con un mensaje 
+                return['status' => false, 'msj' => 'Error al registar categoria.'];
+            }
+
+        } catch (PDOException $e) {
+            
+            // retorna mensaje de error del exception del pdo
+            return['status' => false, 'msj' => 'Error en la consulta' . $e->getMessage()];
+        }
+        finally {
+
+            // finaliza la fincion cerrando la conexion a la bd
+            $this->closeConnection();
+        }
+    }
+
+    // funcion para elimanar un registro
+    private function Eliminar_Categoria() {
+
+        // la conxecion es null por defecto
+        $this->closeConnection();
+
+        // para manejo de errores
+        try {
+            
+            // llamo la funcion y creo la conexion
+            $conn = $this->getConnection();
+
+            // actualiza el status la categoria
+            $query = "UPDATE categorias
+                        SET status = 0
+                        WHERE categoria_id = :id";
+
+            // prepar la sentencia 
+            $stmt = $conn->prepare($query); 
+
+            // vincula los parametros
+            $stmt->bindValue(":id", $this->getCategoriaID());
+
+             // se valida si se ejecuto la sentencia y si es true
+            if ($stmt->execute()) {
+
+                //retorna el status con el mensaje y los datos
+                return['status' => true, 'msj' => 'Categoria Actualizada con exito.'];
+            }
+            else {
+
+                // retiorna un status de error con un mensaje 
+                return['status' => false, 'msj' => 'Categorias no actualizada error.'];
             }
 
         } catch (PDOException $e) {

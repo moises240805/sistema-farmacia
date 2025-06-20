@@ -83,11 +83,11 @@
                                                 <span id="errorPW" class="error-messege"></span>
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary btn-user btn-block iniciar_seccion" type="submit">REGISTRAR</button>
+                                        <button class="btn btn-outline-primary btn-round btn-block iniciar_seccion" type="submit">REGISTRAR</button>
                                     </form>
                                     <br>
                                     <center>
-                                        <a href="index.php?url=autenticator&action=login">Ya tienes una cuenta?. Inicia Sesion </a>
+                                        <a class='btn btn-link' href="index.php?url=autenticator&action=login">Ya tienes una cuenta?. Inicia Sesion </a>
                                     </center>
                                 </div>
                             </div>
