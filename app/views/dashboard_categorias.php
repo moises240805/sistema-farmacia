@@ -157,6 +157,7 @@ require_once 'components/scripts.php';
           <button type="button" class="fa fa-close btn btn-outline-dark btn-round ms-auto" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
+              <input type="hidden" class="form-control" id="id" name="id" placeholder="" required>
               <label for="nombreCategoria" class="form-label"><b>Nombre de categoría</b></label>
               <input type="text" class="form-control" id="nombreCategoriaEdit" name="nombreCategoria" placeholder="Ingrese el nombre" oninput="validar_nombre_modificado()" required>
               <span id="errorCategoriaEdit" class="error-messege"></span>
@@ -172,6 +173,7 @@ require_once 'components/scripts.php';
 </div>
 
 <script src="assets/js/validaciones/categorias_validaciones.js"></script>
+<script src="assets/js/ajax/categorias_ajax.js"></script>
 
   </body>
 </html>

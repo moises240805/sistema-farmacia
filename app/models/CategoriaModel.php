@@ -342,6 +342,104 @@ class Categoria extends Conexion {
         }
     }
 
+    // funcion para obtener un registro
+    private function Obtener_Categoria() {
+
+        // la conxecion es null por defecto
+        $this->closeConnection();
+
+        // para manejo de errores
+        try {
+            
+            // llamo la funcion y creo la conexion
+            $conn = $this->getConnection();
+
+            // actualiza el status la categoria
+            $query = "SELECT *
+                        FROM categorias
+                        WHERE categoria_id = :id AND status = 1";
+
+            // prepar la sentencia 
+            $stmt = $conn->prepare($query); 
+
+            // vincula los parametros
+            $stmt->bindValue(":id", $this->getCategoriaID());
+
+             // se valida si se ejecuto la sentencia y si es true
+            if ($stmt->execute()) {
+
+                // obtiene los datos de la consulta
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                //retorna el status con el mensaje y los datos
+                return['status' => true, 'msj' => 'Categoria encontrada con exito.', 'data' => $data];
+            }
+            else {
+
+                // retiorna un status de error con un mensaje 
+                return['status' => false, 'msj' => 'Categorias no encontrada error.'];
+            }
+
+        } catch (PDOException $e) {
+            
+            // retorna mensaje de error del exception del pdo
+            return['status' => false, 'msj' => 'Error en la consulta' . $e->getMessage()];
+        }
+        finally {
+
+            // finaliza la fincion cerrando la conexion a la bd
+            $this->closeConnection();
+        }
+    }
+
+    // funcion para modificar categoria
+    private function Actualizar_Categoria() {
+
+        // la conxecion es null por defecto
+        $this->closeConnection();
+
+        // para manejo de errores
+        try {
+            
+            // llamo la funcion y creo la conexion
+            $conn = $this->getConnection();
+
+            // inserta una categoria
+            $query = "UPDATE categorias 
+                        SET categoria_nombre = :nombre 
+                        WHERE categoria_id = :id ";
+
+            // prepar la sentencia 
+            $stmt = $conn->prepare($query);
+
+            // vincula los parametros
+            $stmt->bindValue(':id', $this->getCategoriaID());
+            $stmt->bindValue(':nombre', $this->getCategoriaNombre());
+             
+            // se valida si se ejecuto la sentencia y si es true
+            if ($stmt->execute()) {
+
+                //retorna el status con el mensaje y los datos de usuario
+                return['status' => true, 'msj' => 'Categoria Actualizada con exito.'];
+            }
+            else {
+
+                // retorna un status de error con un mensaje 
+                return['status' => false, 'msj' => 'Error al actualizar categoria.'];
+            }
+
+        } catch (PDOException $e) {
+            
+            // retorna mensaje de error del exception del pdo
+            return['status' => false, 'msj' => 'Error en la consulta' . $e->getMessage()];
+        }
+        finally {
+
+            // finaliza la fincion cerrando la conexion a la bd
+            $this->closeConnection();
+        }
+    }
+
     // funcion para elimanar un registro
     private function Eliminar_Categoria() {
 
@@ -369,12 +467,12 @@ class Categoria extends Conexion {
             if ($stmt->execute()) {
 
                 //retorna el status con el mensaje y los datos
-                return['status' => true, 'msj' => 'Categoria Actualizada con exito.'];
+                return['status' => true, 'msj' => 'Categoria Eliminada con exito.'];
             }
             else {
 
                 // retiorna un status de error con un mensaje 
-                return['status' => false, 'msj' => 'Categorias no actualizada error.'];
+                return['status' => false, 'msj' => 'Categorias no eliminada error.'];
             }
 
         } catch (PDOException $e) {
@@ -389,6 +487,5 @@ class Categoria extends Conexion {
         }
     }
 }
-
 
 ?>

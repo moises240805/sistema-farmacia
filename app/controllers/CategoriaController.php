@@ -2,7 +2,7 @@
     // llama el archivo del modelo
     require_once 'app/models/CategoriaModel.php';
     require_once 'app/models/PermisoModel.php';
-    require_once 'app/models/BitacoraModel.php';
+    //require_once 'app/models/BitacoraModel.php';
 
     // llama el archivo que contiene la carga de alerta
     require_once 'components/utils.php';
@@ -46,11 +46,31 @@
         break;
     }
 
-        // funcion para consultar datos
-        function Consultar() {
+    // funcion para consultar datos
+    function Consultar() {
+       
+        // instacia el modelo
+        $modelo = new Categoria();
+        $permiso = new Permiso();
+        //$bitacora = new Bitacora();
 
-            // instacia el modelo
-            $modelo = new Categoria();
+        // se arma el json
+        $permiso_json = json_encode([
+            'modulo' => 'Categorias',
+            'permiso' => 'Consultar',
+            'rol' => $_SESSION['s_usuario']['usuario_rol_id']
+        ]);
+
+
+        // captura el resultado de la consulta
+        $status = $permiso->manejarAccion("verificar", $permiso_json);
+
+        //verifica si el usuario logueado tiene permiso de realizar la ccion requerida mendiante 
+        //la funcion que esta en el modulo admin donde envia el nombre del modulo luego la 
+        //action y el rol de usuario
+        if (isset($status['status']) && $status['status'] == 1) {
+            
+            // Ejecutar acción permitida
 
             // para manejo de errores
             try {
@@ -97,13 +117,17 @@
                 //termina el script
                 exit();
             }
+        }
+    //muestra un modal de info que dice acceso no permitido
+    setError("Error acceso no permitido");
 
-        //redirect
-        header('Location: index.php?url=categorias');
-
-        // termina el script
-        exit();
-    }
+    //redirect
+    require_once 'app/views/dashboard_categorias.php';
+                
+    // termina el script
+    exit();
+    
+}
 
     //funcion para guardar datos
     function Agregar() {
@@ -111,17 +135,17 @@
         // instacia el modelo
         $modelo = new Categoria();
         $permiso = new Permiso();
-        $bitacora = new Bitacora();
+        //$bitacora = new Bitacora();
 
         // se arma el json
-        $user_json = json_encode([
+        $permiso_json = json_encode([
             'modulo' => 'Categorias',
             'permiso' => 'Agregar',
             'rol' => $_SESSION['s_usuario']['usuario_rol_id']
         ]);
 
         // captura el resultado de la consulta
-        $status = $permiso->manejarAccion("verificar", $user_json);
+        $status = $permiso->manejarAccion("verificar", $permiso_json);
 
         //verifica si el usuario logueado tiene permiso de realizar la ccion requerida mendiante 
         //la funcion que esta en el modulo admin donde envia el nombre del modulo luego la 
@@ -165,7 +189,7 @@
                         setSuccess($resultado['msj']);
 
                         // se arma json de bitacora
-                        $bitacora_json = json_encode([
+                        /*$bitacora_json = json_encode([
                             'usuario_id' => $_SESSION['s_usuario']['usuario_id'],
                             'modulo' => 'Categorias',
                             'titulos' => 'Registro de Categorias',
@@ -176,7 +200,7 @@
                         ]);
 
                         // realiza la insercion de la bitacora
-                        $bitacora->manejarAccion('agregar', $bitacora_json);
+                        $bitacora->manejarAccion('agregar', $bitacora_json);*/
                     }
                     else {
                                     
@@ -196,13 +220,19 @@
                     // carga la alerta
                     setError('Error en operacion.');
                 }
+
+            //redirect
+            header('Location: index.php?url=categorias');
+            
+            // termina el script
+            exit();
         }
 
     //muestra un modal de info que dice acceso no permitido
-    setError("Error acceso no permitido");
+    setError("Error accion no permitida");
 
-    // carga la vista
-    require_once 'app/views/dashboard_categorias.php';
+    //redirect
+    header('Location: index.php?url=categorias');
             
     // termina el script
     exit();
@@ -212,27 +242,128 @@
     //funcion para modificar datos
     function Actualizar() {
 
+         // instacia el modelo
+        $modelo = new Categoria();
+        $permiso = new Permiso();
+        //$bitacora = new Bitacora();
+
+        // se arma el json
+        $permiso_json = json_encode([
+            'modulo' => 'Categorias',
+            'permiso' => 'Modificar',
+            'rol' => $_SESSION['s_usuario']['usuario_rol_id']
+        ]);
+
+        // captura el resultado de la consulta
+        $status = $permiso->manejarAccion("verificar", $permiso_json);
+
+        //verifica si el usuario logueado tiene permiso de realizar la ccion requerida mendiante 
+        //la funcion que esta en el modulo admin donde envia el nombre del modulo luego la 
+        //action y el rol de usuario
+        if (isset($status['status']) && $status['status'] == 1) {
+            
+            // Ejecutar acción permitida
+
+            // obtiene y sinatiza los valores
+            $id = $_POST['id'];
+            $nombre_categoria = filter_var($_POST['nombreCategoria'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            // valida si los campos no estan vacios
+            if (empty($nombre_categoria || empty($id) )) {
+
+                // manda mensaje de error
+                setError('Todos los campos son requeridos no se puede enviar vacios.');
+
+                //redirec
+                header('Location: index.php?url=categorias');
+
+                //termina el script
+                exit();
+            }
+
+            // se arma el josn
+            $categoria_json = json_encode([
+                'id' => $id,
+                'nombre' => $nombre_categoria
+            ]);
+
+                // para manejo de errores
+                try {
+
+                    // lla ma la funcion que maneja las acciones en el modelo donde pasa como 
+                    // primer para metro la accion y luego el objeto usuario_json
+                    $resultado = $modelo->manejarAccion('modificar', $categoria_json);
+
+                    // valida si exixtes el staus del resultado y si es true 
+                    if (isset($resultado['status']) && $resultado['status'] === true) {
+
+                        // usa mensaje dinamico del modelo
+                        setSuccess($resultado['msj']);
+
+                        // se arma json de bitacora
+                        /*$bitacora_json = json_encode([
+                            'usuario_id' => $_SESSION['s_usuario']['usuario_id'],
+                            'modulo' => 'Categorias',
+                            'titulos' => 'Registro de Categorias',
+                            'descripcion' => 'El usuario: ' . $_SESSION['s_usuario']['usuario_nombre'] . ', realizo 
+                                                un registro de la siguiente categoria: ' . $categoria_json['nombre'] . ', en 
+                                                el modulo de categorias.',
+                            'fecha' => date('Y-m-d H:i:s')
+                        ]);
+
+                        // realiza la insercion de la bitacora
+                        $bitacora->manejarAccion('agregar', $bitacora_json);*/
+                    }
+                    else {
+                                    
+                        // usa mensaje dinamico del modelo
+                        setError($resultado['msj']);
+
+                        //redirect
+                        header('Location: index.php?url=categorias');
+
+                    }
+                }
+                catch (Exception $e) {
+
+                    //mensaje del exception de pdo
+                    error_log('Error al registrar...' . $e->getMessage());
+                    
+                    // carga la alerta
+                    setError('Error en operacion.');
+                }
+
+            //redirect
+            header('Location: index.php?url=categorias');
+            
+            // termina el script
+            exit();
+        }
+
+    //muestra un modal de info que dice acceso no permitido
+    setError("Error accion no permitida");
+
+    //redirect
+    header('Location: index.php?url=categorias');
+            
+    // termina el script
+    exit();
+
     }
 
     // function para obtener un dato
     function Obtener() {
 
-    }
-
-    // funcion para eliminar un dato
-    function Eliminar() {
-
-         // instacia el modelo
+        // instacia el modelo
         $modelo = new Categoria();
 
-        // obtiene y sinatiza los valores
-        $id_categoria = $_GET['ID'];
+        $id = $_GET['ID'];
 
-        // valida si los campos no estan vacios
-        if (empty($id_categoria)) {
+         // valida si los campos no estan vacios
+        if (empty($id)) {
 
             // manda mensaje de error
-            setError('ID vacio.');
+            setError('Todos los campos son requeridos no se puede enviar vacios.');
 
             //redirec
             header('Location: index.php?url=categorias');
@@ -241,47 +372,114 @@
             exit();
         }
 
-        // se arma el josn
-        $categoria_json = json_encode([
-            'id' => $id_categoria
+            // se arma el josn
+            $categoria_json = json_encode([
+                'id' => $id
+            ]);
+
+            $resultado = $modelo->manejarAccion('obtener', $categoria_json);
+
+            $categoria = $resultado['data'];
+
+            echo json_encode($categoria);
+
+            exit();
+    }
+
+    // funcion para eliminar un dato
+    function Eliminar() {
+
+         // instacia el modelo
+        $modelo = new Categoria();
+        $permiso = new Permiso();
+        //$bitacora = new Bitacora();
+
+        // se arma el json
+        $permiso_json = json_encode([
+            'modulo' => 'Categorias',
+            'permiso' => 'Eliminar',
+            'rol' => $_SESSION['s_usuario']['usuario_rol_id']
         ]);
 
-            // para manejo de errores
-            try {
+        // captura el resultado de la consulta
+        $status = $permiso->manejarAccion("verificar", $permiso_json);
 
-                // lla ma la funcion que maneja las acciones en el modelo donde pasa como 
-                // primer para metro la accion y luego el objeto usuario_json
-                $resultado = $modelo->manejarAccion('eliminar', $categoria_json);
+        //verifica si el usuario logueado tiene permiso de realizar la ccion requerida mendiante 
+        //la funcion que esta en el modulo admin donde envia el nombre del modulo luego la 
+        //action y el rol de usuario
+        if (isset($status['status']) && $status['status'] == 1) {
+            
+            // Ejecutar acción permitida
 
-                // valida si exixtes el staus del resultado y si es true 
-                if (isset($resultado['status']) && $resultado['status'] === true) {
+            // obtiene y sinatiza los valores
+            $id_categoria = $_GET['ID'];
 
-                    // usa mensaje dinamico del modelo
-                    setSuccess($resultado['msj']);
-                }
-                else {
-                                
-                    // usa mensaje dinamico del modelo
-                    setError($resultado['msj']);
+            // valida si los campos no estan vacios
+            if (empty($id_categoria)) {
 
-                    //redirect
-                    header('Location: index.php?url=categorias');
+                // manda mensaje de error
+                setError('ID vacio.');
 
-                }
+                //redirec
+                header('Location: index.php?url=categorias');
+
+                //termina el script
+                exit();
             }
-            catch (Exception $e) {
 
-                //mensaje del exception de pdo
-                error_log('Error al registrar...' . $e->getMessage());
-                
-                // carga la alerta
-                setError('Error en operacion.');
-            }
+            // se arma el josn
+            $categoria_json = json_encode([
+                'id' => $id_categoria
+            ]);
+
+                // para manejo de errores
+                try {
+
+                    // lla ma la funcion que maneja las acciones en el modelo donde pasa como 
+                    // primer para metro la accion y luego el objeto usuario_json
+                    $resultado = $modelo->manejarAccion('eliminar', $categoria_json);
+
+                    // valida si exixtes el staus del resultado y si es true 
+                    if (isset($resultado['status']) && $resultado['status'] === true) {
+
+                        // usa mensaje dinamico del modelo
+                        setSuccess($resultado['msj']);
+                    }
+                    else {
+                                    
+                        // usa mensaje dinamico del modelo
+                        setError($resultado['msj']);
+
+                        //redirect
+                        header('Location: index.php?url=categorias');
+
+                    }
+                }
+                catch (Exception $e) {
+
+                    //mensaje del exception de pdo
+                    error_log('Error al registrar...' . $e->getMessage());
+                    
+                    // carga la alerta
+                    setError('Error en operacion.');
+                }
 
         //redirect
         header('Location: index.php?url=categorias');
 
         // termina el script
         exit();
+
     }
+
+    //muestra un modal de info que dice acceso no permitido
+    setError("Error accion no permitida");
+
+    //redirect
+    header('Location: index.php?url=categorias');
+            
+    // termina el script
+    exit();    
+    
+}
 ?>
