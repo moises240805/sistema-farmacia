@@ -6,7 +6,7 @@
     require_once "components/links.php";
     require_once "components/alerts.php";
     ?>
-    <title>farmacia : login</title>
+    <title>farmacia : recuperar</title>
 </head>
 <body style='
   background-image: url(assets/img/farmacia_fondo.jpg);
@@ -31,7 +31,7 @@
                             <div class="divider-vertical"></div>
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Iniciar Sesión</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Recuperar Usuario</h1>
                                     </div>
                                     <form class="formulario user" onsubmit="return formulario_validaciones()" action="index.php?url=autenticator&action=ingresar" method="post">
                                         <div class="form-group">
@@ -42,7 +42,7 @@
                                                     <input
                                                     type="text"
                                                     class="form-control"
-                                                    placeholder="Username"
+                                                    placeholder="Ingrese su Username"
                                                     aria-label="Username"
                                                     aria-describedby="basic-addon1"
                                                     name='username' id='username' required
@@ -57,16 +57,26 @@
                                                  <span class="input-group-text" id="basic-addon1"
                                                     ><i class="fa fa-lock"></i></span
                                                     >
-                                                <input class="form-control form-control-user input_pw" type="password" name="password" id="password" placeholder="password" required oninput="password_validacion()">
+                                                <input class="form-control form-control-user input_pw" type="password" name="password" id="password" placeholder="Ingrese su nueva password" required oninput="password_validacion()">
+                                                <span id="icono-validacionPW" class="input-icon"></span>
+                                                <span id="errorPW" class="error-messege"></span>
+                                            </div>
+                                        <div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                 <span class="input-group-text" id="basic-addon1"
+                                                    ><i class="fa fa-lock"></i></span
+                                                    >
+                                                <input class="form-control form-control-user input_pw" type="password" name="password" id="password" placeholder="Confirmar password" required oninput="password_validacion_confirm()">
                                                 <span id="icono-validacionPW" class="input-icon"></span>
                                                 <span id="errorPW" class="error-messege"></span>
                                             </div>
                                         </div>
                                         <center>
-                                            <a class='btn btn-link' href="index.php?url=autenticator&action=ajustes">No te recuerdas de tu password?.</a>
+                                            <a class='btn btn-link' href="index.php?url=autenticator&action=login">Iniciar Session</a>
                                         </center>
                                         <br>
-                                        <button class="btn btn-outline-primary btn-block btn-round iniciar_seccion" type="submit">INGRESAR</button>
+                                        <button class="btn btn-outline-primary btn-block btn-round iniciar_seccion" type="submit">RECUPERAR</button>
                                     </form>
                                     <br>
                                     <center>

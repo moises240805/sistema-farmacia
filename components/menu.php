@@ -56,18 +56,6 @@
                       </a>
                     </li>
                     <li>
-                      <a href="index.php?url=marcas">
-                        <i class="fa fa-tags"></i>
-                        <span class="sub-item">Marcas</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="index.php?url=presentacion">
-                        <i class="fa fa-box"></i>
-                        <span class="sub-item">Presentacion</span>
-                      </a>
-                    </li>
-                    <li>
                       <a href="index.php?url=productos">
                         <i class="fa fa-cubes"></i>
                         <span class="sub-item">Productos</span>
