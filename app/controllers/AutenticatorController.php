@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
     require 'vendor/autoload.php'; // o manual: PHPMailer.php, SMTP.php, Exception.php
 
@@ -7,6 +8,8 @@
     use PHPMailer\PHPMailer\Exception;
 
 
+=======
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
     //llama al modelo
     require_once 'app/models/AutenticatorModel.php';
     
@@ -48,11 +51,16 @@
         break;
 
         case 'recuperar':
+<<<<<<< HEAD
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+=======
+            if ($_SERVER['REQUEST?METHOD'] == 'POST') {
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
                 Recuperar();
             }
         break;
 
+<<<<<<< HEAD
         case 'verificar':
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 //Verificar_Token();
@@ -67,6 +75,8 @@
             }
         break;
 
+=======
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
         case 'ajustes':
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 Recuperar_Views();
@@ -266,6 +276,7 @@
     function Recuperar_Views() {
         require_once 'app/views/recuperar.php';
     }
+<<<<<<< HEAD
 
     //fucion que llama la vista de verificar token
     function Verificar_Views() {
@@ -408,4 +419,6 @@
         exit();
     
     }
+=======
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
 ?>

@@ -81,6 +81,9 @@
         </div>
     </div>
     <script src="assets/js/validaciones/login_validaciones.js"></script>
+<<<<<<< HEAD
     <?php require_once "components/scripts.php"; ?>
+=======
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
 </body>
 </html>

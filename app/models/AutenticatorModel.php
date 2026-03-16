@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
        // 1. Descarga PHPMailer: https://github.com/PHPMailer/PHPMailer
        
        use PHPMailer\PHPMailer\PHPMailer;
@@ -7,6 +8,8 @@
        use PHPMailer\PHPMailer\Exception;
        require 'vendor/autoload.php'; // o manual: PHPMailer.php, SMTP.php, Exception.php
 
+=======
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
 // llama al modelo conexion
 require_once "ConexionModel.php";
 
@@ -18,8 +21,11 @@ class Autenticator extends Conexion {
     private $usuario_email;
     private $usuario_password;
     private $usuario_rol;
+<<<<<<< HEAD
     private $codigo;
     private $token;
+=======
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
 
     // construcor
     public function __construct() {
@@ -52,7 +58,11 @@ class Autenticator extends Conexion {
         // almacena el username en la variable para despues validar
         $username = trim($usuario['username'] ?? '');
         // valida el username si cumple con los requisitos
+<<<<<<< HEAD
         if ($username === '' || !preg_match($expre_username, $username) || strlen($username) > 20 || strlen($username) < 5) {
+=======
+        if ($username === '' && !preg_match($expre_username, $username) && strlen($username) > 20 && strlen($username) < 5) {
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
             // retorna un arry de status con el mensaje en caso de error
             return ['status' => false, 'msj' => 'EL nombre de usuario es invalido debe tener minimo 5 y maximo 20 caracteres y debe tener un @ y/o un _  ej:@usuario_123 .'];
         }
@@ -63,7 +73,11 @@ class Autenticator extends Conexion {
         // almacena el email en la variable para despues validar
         $email = trim($usuario['email'] ?? '');
         // valida el email si cumple con los requisitos
+<<<<<<< HEAD
         if ($email === '' || !preg_match($expre_email, $email) || strlen($email) > 20 || strlen($email) < 5) {
+=======
+        if ($email === '' && !preg_macth($expre_email, $email) && strlen($email) > 20 && strlen($email) < 5) {
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
             //retorna un arry de status con el mensaje en caso de error
             return ['status' => false, 'msj' => 'El email es invalido debe tener minimo 5 y maximo 25 caracteres y debe tener un @ y un .com  ej: example@email.com .'];
         }
@@ -74,7 +88,11 @@ class Autenticator extends Conexion {
         // almacena la password en la variable para despues validar
         $password = trim($usuario['password'] ?? '');
         // valida la password si cumple con todos los requisitos
+<<<<<<< HEAD
         if ($password === '' || !preg_match($expre_password, $password) || strlen($password) > 11 || strlen($password) < 6) {
+=======
+        if ($password === '' && !preg_macth($expre_password, $password) && strlen($password) > 11 && strlen($password) < 6) {
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
             //retorna un arry de status con el mensaje en caso de error
             return['status' => false, 'msj' => 'La password es invalida debe tener minimo 6 y maximo 11 caracteres y debe tener un caracter mayuscula y un .  ej: Example12. .'];
         }
@@ -124,7 +142,11 @@ class Autenticator extends Conexion {
         // almacena el username en la variable para despues validar
         $username = trim($usuario['username'] ?? '');
         // valida el username si cumple con los requisitos
+<<<<<<< HEAD
         if ($username === '' || !preg_match($expre_username, $username) || strlen($username) > 20 || strlen($username) < 5) {
+=======
+        if ($username === '' && !preg_match($expre_username, $username) && strlen($username) > 20 && strlen($username) < 5) {
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
             // retorna un arry de status con el mensaje en caso de error
             return ['status' => false, 'msj' => 'EL nombre de usuario es invalido debe tener minimo 5 y maximo 20 caracteres y debe tener un @ y/o un _  ej:@usuario_123 .'];
         }
@@ -135,7 +157,11 @@ class Autenticator extends Conexion {
         // almacena la password en la variable para despues validar
         $password = trim($usuario['password'] ?? '');
         // valida la password si cumple con todos los requisitos
+<<<<<<< HEAD
         if ($password === '' || !preg_match($expre_password, $password) || strlen($password) > 11 || strlen($password) < 6) {
+=======
+        if ($password === '' && !preg_macth($expre_password, $password) && strlen($password) > 11 && strlen($password) < 6) {
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
             //retorna un arry de status con el mensaje en caso de error
             return['status' => false, 'msj' => 'La password es invalida debe tener minimo 6 y maximo 11 caracteres y debe tener un caracter mayuscula y un .  ej: Example12. .'];
         }
@@ -167,6 +193,7 @@ class Autenticator extends Conexion {
             }
         }
 
+<<<<<<< HEAD
         $expre_email = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'; // para el email
 
         // almacena el email en la variable para despues validar
@@ -204,11 +231,22 @@ class Autenticator extends Conexion {
         $expre_username = '/^[a-zA-Z0-9@_]+$/'; //para el usernmae
         $expre_password = '/^(?=.*[A-Z])(?=.*\.)[a-zA-Z0-9.]{6,}$/'; // para el password
         $expre_codigo = '/^\d{6}$/'; // para el codigo de recuperacion
+=======
+        // expreciones regulares y validaciones
+        $expre_username = '/^[a-zA-Z0-9@_]+$/'; //para el usernmae
+        $expre_email = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'; // para el email
+        $expre_password = '/^(?=.*[A-Z])(?=.*\.)[a-zA-Z0-9.]{6,}$/'; // para el password
+        $expre_numeric = '/^\d+$/'; // para los numeros
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
 
         // almacena el username en la variable para despues validar
         $username = trim($usuario['username'] ?? '');
         // valida el username si cumple con los requisitos
+<<<<<<< HEAD
         if ($username === '' || !preg_match($expre_username, $username) || strlen($username) > 20 || strlen($username) < 5) {
+=======
+        if ($username === '' && !preg_match($expre_username, $username) && strlen($username) > 20 && strlen($username) < 5) {
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
             // retorna un arry de status con el mensaje en caso de error
             return ['status' => false, 'msj' => 'EL nombre de usuario es invalido debe tener minimo 5 y maximo 20 caracteres y debe tener un @ y/o un _  ej:@usuario_123 .'];
         }
@@ -216,20 +254,43 @@ class Autenticator extends Conexion {
         // asigna el valor al atributo del objeto si todo salio bien
         $this->usuario_name = $username;
 
+<<<<<<< HEAD
         // almacena la password en la variable para despues validar
         $password = trim($usuario['password'] ?? '');
         // valida la password si cumple con todos los requisitos
         if ($password === '' || !preg_match($expre_password, $password) || strlen($password) > 11 || strlen($password) < 6) {
+=======
+        // almacena el email en la variable para despues validar
+        $email = trim($usuario['email'] ?? '');
+        // valida el email si cumple con los requisitos
+        if ($email === '' && !preg_macth($expre_email, $email) && strlen($email) > 20 && strlen($email) < 5) {
+            //retorna un arry de status con el mensaje en caso de error
+            return ['status' => false, 'msj' => 'El email es invalido debe tener minimo 5 y maximo 25 caracteres y debe tener un @ y un .com  ej: example@email.com .'];
+        }
+
+        // asigna el valor al atributo del objeto si todo salio bien
+        $this->usuario_email = $email;
+
+        // almacena la password en la variable para despues validar
+        $password = trim($usuario['password'] ?? '');
+        // valida la password si cumple con todos los requisitos
+        if ($password === '' && !preg_macth($expre_password, $password) && strlen($password) > 11 && strlen($password) < 6) {
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
             //retorna un arry de status con el mensaje en caso de error
             return['status' => false, 'msj' => 'La password es invalida debe tener minimo 6 y maximo 11 caracteres y debe tener un caracter mayuscula y un .  ej: Example12. .'];
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
         // encripta la password una ves validada
         $password_hash = password_hash($password, PASSWORD_DEFAULT); 
 
         // asigna el valor al atributo del objeto si todo salio bien
         $this->usuario_password = $password_hash;
 
+<<<<<<< HEAD
         // almacena el codigo en la variable para despues validar
         $codigo = trim($usuario['codigo'] ?? '');
 
@@ -260,6 +321,23 @@ class Autenticator extends Conexion {
     }
 
 
+=======
+        // almacena el id en la variable para despues validar
+        $id = trim($usuario['id'] ?? '');
+        // valida el rol si cumple con todos los requisitos
+        if ($id === '' && !preg_match($expre_numeric, $id)) {
+            //retorna un arry de status con el mensaje en caso de error 
+            return['status' => true, 'msj' => 'El id es invalido intentenlo de nuevo.'];
+        }
+
+        // asigna el valor en el atributo del objeto si todo salio bien
+        $this->usuario_id = $id;
+
+        // retorna true si todo fue validado y asignado correctamente
+        return['status' => true, 'msj' => 'Datos validados y asignados correctamente.']; 
+    }
+
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
     // metodo que me valida y asigna los datos del objeto recibido para la funcion obtener
     private function setUsuarioID($usuario_json) {
 
@@ -282,9 +360,15 @@ class Autenticator extends Conexion {
         // almacena el id en la variable para despues validar
         $id = trim($usuario['id'] ?? '');
         // valida el rol si cumple con todos los requisitos
+<<<<<<< HEAD
         if ($id === '' || !preg_match($expre_numeric, $id)) {
             //retorna un arry de status con el mensaje en caso de error 
             return['status' => false, 'msj' => 'El id es invalido intentenlo de nuevo.'];
+=======
+        if ($id === '' && !preg_match($expre_numeric, $id)) {
+            //retorna un arry de status con el mensaje en caso de error 
+            return['status' => true, 'msj' => 'El id es invalido intentenlo de nuevo.'];
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
         }
 
         // asigna el valor en el atributo del objeto si todo salio bien
@@ -331,6 +415,7 @@ class Autenticator extends Conexion {
         return $this->usuario_rol;
     }
 
+<<<<<<< HEAD
     //para el codigo
     private function getCodigo() {
 
@@ -345,6 +430,8 @@ class Autenticator extends Conexion {
         return $this->token;
     }   
 
+=======
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
     // Esta se encarga de procesar los action indiferentemente cual sea llama la funcion de 
     // validacio y luego al metodo correspondiente al action
     // donde primero recibe el action como primer parametro que son los de agregar etc.. 
@@ -352,8 +439,14 @@ class Autenticator extends Conexion {
     public function manejarAccion($action, $usuario_json) {
 
         switch($action) {
+<<<<<<< HEAD
             case 'agregar':
                 
+=======
+
+            case 'agregar':
+
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
                 // almacena el status de la respuesta de la funcion de validacion
                 $validacion = $this->setUsuarioData($usuario_json);
                 
@@ -406,6 +499,7 @@ class Autenticator extends Conexion {
             // termina el script
             break;
 
+<<<<<<< HEAD
             case 'cambiar':
 
                 // almacena el status de la respuesta de la funcion de validacion
@@ -424,6 +518,8 @@ class Autenticator extends Conexion {
             // termina el script
             break;
 
+=======
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
             case 'obtener':
 
                 // almacena el status de la respuesta de la funcion de validacion
@@ -577,6 +673,7 @@ class Autenticator extends Conexion {
             $this->closeConnection();
         }
     }
+<<<<<<< HEAD
 
     // funcion para recuperar un usuario
     private function Recuperar_Usuario() {
@@ -860,5 +957,7 @@ class Autenticator extends Conexion {
         }
     }
 
+=======
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
 }
 ?>

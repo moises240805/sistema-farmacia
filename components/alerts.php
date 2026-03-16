@@ -1,8 +1,18 @@
+<<<<<<< HEAD
 <?php
 if (isset($_SESSION['message']) && isset($_SESSION['message_type'])) {
     $message = is_array($_SESSION['message']) ? 'Error en datos' : (string)$_SESSION['message'];
     $message_type = (string)$_SESSION['message_type'];
 
+=======
+ <?php
+
+if (isset($_SESSION['message']) && isset($_SESSION['message_type'])) {
+    $message = $_SESSION['message'];
+    $message_type = $_SESSION['message_type'];
+
+    // Limpia los datos para JS
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
     $js_message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
     $js_message_type = htmlspecialchars($message_type, ENT_QUOTES, 'UTF-8');
 
@@ -22,4 +32,8 @@ if (isset($_SESSION['message']) && isset($_SESSION['message_type'])) {
     unset($_SESSION['message']);
     unset($_SESSION['message_type']);
 }
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
