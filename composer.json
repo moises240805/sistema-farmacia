@@ -1,0 +1,16 @@
+{
+    "name": "usuario/www.farmacia.com",
+    "autoload": {
+        "psr-4": {
+            "Usuario\\WwwFarmaciaCom\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "moises"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^7.0"
+    }
+}
