@@ -78,13 +78,8 @@ function email_validacion() {
     return false;
   }
 
-<<<<<<< HEAD
   if (valor.length < 7 || valor.length > 60) {
     error.textContent = 'El email debe tener minimo 7 y maximo 60 caracteres.';
-=======
-  if (valor.length < 5 || valor.length > 20) {
-    error.textContent = 'El email debe tener minimo 5 y maximo 25 caracteres.';
->>>>>>> d51b19c324e5445128d270269f3af8f9a680865d
     email.classList.add('input-error');
     icono.innerHTML = '<i class="fa fa-times"></i>'; // ícono X
     icono.classList.add('error');
